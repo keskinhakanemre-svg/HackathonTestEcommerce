@@ -106,6 +106,14 @@ function buildDispatcher() {
 
 const dispatcher = buildDispatcher();
 
+// Bu dispatcher (proxy + kurumsal CA sertifikası bilgisini içeriyor) sadece
+// Gemini için değil, HERHANGİ bir dış API çağrısı için geçerli — aynı
+// kurumsal ağ/SSL inspection sorunu hangi host'a gidersek gitsin karşımıza
+// çıkar. Bu yüzden export ediyoruz: örn. `copilotAgent.js`, GitHub API'sine
+// giderken aynı proxy/CA ayarını tekrar yazmak zorunda kalmadan bunu
+// kullanıyor.
+export { dispatcher };
+
 export class AgentError extends Error {
   constructor(message, status = 500, { retryable = false, truncated = false } = {}) {
     super(message);
@@ -135,8 +143,10 @@ const DEFAULT_TRUNCATION_MAX_TOKENS_CAP = 8192;
 
 // undici'nin fetch hataları genelde üstte sadece "fetch failed" der; asıl
 // sebep (sertifika hatası, DNS, bağlantı reddi vb.) err.cause içinde
-// zincirlenmiş halde durur. Bunu açıp gerçek sebebi yakalıyoruz.
-function describeNetworkError(err) {
+// zincirlenmiş halde durur. Bunu açıp gerçek sebebi yakalıyoruz. Bu da
+// (dispatcher gibi) genel bir yardımcı — GitHub API çağrılarında da
+// kullanılabilsin diye export ediliyor.
+export function describeNetworkError(err) {
   const parts = [];
   let current = err;
   let depth = 0;

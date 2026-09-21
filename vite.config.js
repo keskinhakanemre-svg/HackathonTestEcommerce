@@ -5,6 +5,7 @@ import { runDesignAgent } from "./server/designAgent.js";
 import { runDeveloperAgent } from "./server/developerAgent.js";
 import { AgentError } from "./server/geminiClient.js";
 import { applyFileChanges, ApplyChangesError } from "./server/applyChanges.js";
+import { sendDesignToCopilot, getCopilotTaskStatus } from "./server/copilotAgent.js";
 
 // Dev server'a agent zincirinin API endpoint'lerini ekleyen küçük bir Vite
 // eklentisi. Sadece `npm run dev` sırasında çalışır; production build'e
@@ -31,6 +32,14 @@ import { applyFileChanges, ApplyChangesError } from "./server/applyChanges.js";
 // önerilen dosya içeriklerini GERÇEKTEN diske yazar. Yol güvenliği
 // (sadece src/ altına, proje dışına çıkamaz) applyChanges.js'te kontrol
 // edilir.
+//
+// "/api/send-to-copilot" → Design Agent'ın planını, kod ÜRETMEDEN,
+// doğrudan GitHub Copilot'un coding agent task API'sine gönderir. Kod
+// GitHub'ın kendi bulut ortamında üretiliyor, önizleme/onay adımını da
+// GitHub'ın PR review süreci (draft PR) sağlıyor.
+//
+// "/api/copilot-task-status" → Gönderilen bir task'ın (queued/in_progress/
+// completed/...) güncel durumunu sorgular.
 function analystAgentApiPlugin() {
   return {
     name: "analyst-agent-api",
@@ -140,6 +149,57 @@ function analystAgentApiPlugin() {
           const status = error instanceof ApplyChangesError ? error.status : 500;
           sendJson(res, status, {
             error: error?.message ?? "Değişiklikler uygulanırken beklenmeyen bir hata oluştu.",
+          });
+        }
+      });
+
+      server.middlewares.use("/api/send-to-copilot", async (req, res) => {
+        if (req.method !== "POST") {
+          res.statusCode = 405;
+          res.end("Method Not Allowed");
+          return;
+        }
+
+        try {
+          const body = await readJsonBody(req);
+          const design = body?.design;
+          const analystAnalysis =
+            typeof body?.analystAnalysis === "string" ? body.analystAnalysis : undefined;
+
+          if (!design || typeof design !== "object") {
+            sendJson(res, 400, { error: "design (Design Agent çıktısı) gerekli." });
+            return;
+          }
+
+          const result = await sendDesignToCopilot({ design, analystAnalysis });
+          sendJson(res, 200, result);
+        } catch (error) {
+          const status = error instanceof AgentError ? error.status : 500;
+          sendJson(res, status, {
+            error: error?.message ?? "Beklenmeyen bir hata oluştu.",
+          });
+        }
+      });
+
+      server.middlewares.use("/api/copilot-task-status", async (req, res) => {
+        if (req.method !== "GET") {
+          res.statusCode = 405;
+          res.end("Method Not Allowed");
+          return;
+        }
+
+        try {
+          // NOT: Vite'ın middleware mount mekanizması (connect), path'e göre
+          // req.url'i strip edebiliyor — bu yüzden `new URL(req.url, base)`
+          // yerine sadece "?" sonrasını alıp güvenle parse ediyoruz.
+          const queryString = req.url.includes("?") ? req.url.split("?")[1] : "";
+          const taskId = new URLSearchParams(queryString).get("taskId");
+          const result = await getCopilotTaskStatus(taskId);
+          sendJson(res, 200, result);
+        } catch (error) {
+          const status = error instanceof AgentError ? error.status : 500;
+          sendJson(res, status, {
+            error: error?.message ?? "Beklenmeyen bir hata oluştu.",
           });
         }
       });

@@ -472,3 +472,19 @@
   padding: 0.05rem 0.3rem;
   border-radius: 4px;
 }
+
+.agent-page__copilot-hint {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.agent-page__block--proposal details {
+  margin-top: 0.25rem;
+}
+
+.agent-page__block--proposal summary {
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
