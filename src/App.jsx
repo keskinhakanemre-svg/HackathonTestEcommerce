@@ -20,7 +20,7 @@ function App() {
         {page === "products" ? (
           <>
             <section className="app__intro">
-              <h2>Ürünler</h2>
+              <h2>Ürün Listesi</h2>
               <p>Basit e-ticaret ürün listeleme sayfası.</p>
             </section>
             <ProductList products={products} onAddToCart={handleAddToCart} />
