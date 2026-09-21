@@ -1,0 +1,474 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: #1f2937;
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.header__nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.header__nav-link {
+  background: transparent;
+  border: none;
+  color: #d1d5db;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.header__nav-link:hover {
+  background-color: #374151;
+  color: #ffffff;
+}
+
+.header__nav-link--active {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.header__cart {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #374151;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.header__cart-icon {
+  font-size: 1.1rem;
+}
+
+.app__main {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.app__intro {
+  margin-bottom: 1.5rem;
+}
+
+.app__intro h2 {
+  margin: 0 0 0.25rem 0;
+}
+
+.app__intro p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.product-list__empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem 0;
+}
+
+.product-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.product-card__image {
+  background-color: #f3f4f6;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.product-card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.product-card__category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.product-card__name {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #111827;
+}
+
+.product-card__price {
+  margin: 0;
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 1.1rem;
+}
+
+.product-card__button {
+  margin-top: auto;
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.product-card__button:hover {
+  background-color: #1d4ed8;
+}
+
+.app__footer {
+  text-align: center;
+  padding: 1.25rem;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.agent-page {
+  max-width: 720px;
+}
+
+.agent-page h2 {
+  margin: 0 0 0.35rem 0;
+}
+
+.agent-page__intro {
+  margin: 0 0 1.25rem 0;
+  color: #6b7280;
+}
+
+.agent-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.agent-page__textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.agent-page__textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.agent-page__submit {
+  align-self: flex-start;
+  padding: 0.6rem 1.25rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.agent-page__submit:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.agent-page__submit:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.agent-page__error {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.agent-page__result {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.agent-page__agent-label {
+  margin: 0.75rem 0 -0.25rem 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.agent-page__agent-label:first-child {
+  margin-top: 0;
+}
+
+.agent-page__agent-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.75rem 0 -0.25rem 0;
+}
+
+.agent-page__agent-label-row .agent-page__agent-label {
+  margin: 0;
+}
+
+.agent-page__rerun {
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #374151;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.agent-page__rerun:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.agent-page__rerun:disabled {
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+.agent-page__block {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.agent-page__block h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.agent-page__block p,
+.agent-page__block ul {
+  margin: 0;
+  color: #4b5563;
+}
+
+.agent-page__block ul {
+  padding-left: 1.1rem;
+}
+
+.agent-page__block--prompt {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.agent-page__block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.agent-page__copy {
+  border: 1px solid #93c5fd;
+  background-color: #ffffff;
+  color: #1d4ed8;
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.agent-page__copy:hover {
+  background-color: #dbeafe;
+}
+
+.agent-page__prompt {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: "Cascadia Code", "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.agent-page__block--proposal {
+  background-color: #fefce8;
+  border-color: #fde68a;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.agent-page__proposal-warning {
+  margin: 0;
+  color: #92400e;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.agent-page__proposal-summary {
+  margin: 0;
+  color: #374151;
+}
+
+.agent-page__proposal-notes {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+.agent-page__file-proposal {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.agent-page__file-proposal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.agent-page__file-path {
+  font-family: "Cascadia Code", "Fira Code", monospace;
+  font-size: 0.82rem;
+  color: #111827;
+  word-break: break-all;
+}
+
+.agent-page__file-badge {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.agent-page__file-badge--create {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.agent-page__file-badge--replace {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.agent-page__code-preview {
+  margin: 0;
+  padding: 0.75rem;
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre;
+  font-family: "Cascadia Code", "Fira Code", monospace;
+  font-size: 0.78rem;
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+.agent-page__apply {
+  align-self: flex-start;
+  border: none;
+  background-color: #16a34a;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.agent-page__apply:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.agent-page__apply:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.agent-page__success {
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.agent-page__success code {
+  background-color: #dcfce7;
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+}
