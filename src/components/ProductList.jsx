@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-export default function ProductList({ products, onAddToCart }) {
+export default function ProductList({ products, onAddToCart, onViewDetails }) {
   if (products.length === 0) {
     return <p className="product-list__empty">Gösterilecek ürün bulunamadı.</p>;
   }
@@ -12,6 +12,7 @@ export default function ProductList({ products, onAddToCart }) {
           key={product.id}
           product={product}
           onAddToCart={onAddToCart}
+          onViewDetails={onViewDetails}
         />
       ))}
     </div>
