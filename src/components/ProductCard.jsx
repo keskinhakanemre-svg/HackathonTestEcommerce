@@ -3,7 +3,7 @@ const currencyFormatter = new Intl.NumberFormat("tr-TR", {
   currency: "TRY",
 });
 
-export default function ProductCard({ product, onAddToCart }) {
+export default function ProductCard({ product, onAddToCart, onViewDetails }) {
   return (
     <div className="product-card">
       <div className="product-card__image" aria-hidden="true">
@@ -15,13 +15,22 @@ export default function ProductCard({ product, onAddToCart }) {
         <p className="product-card__price">
           {currencyFormatter.format(product.price)}
         </p>
-        <button
-          type="button"
-          className="product-card__button"
-          onClick={() => onAddToCart(product)}
-        >
-          Sepete Ekle
-        </button>
+        <div className="product-card__actions">
+          <button
+            type="button"
+            className="product-card__button product-card__button--secondary"
+            onClick={() => onViewDetails(product)}
+          >
+            Detayı Gör
+          </button>
+          <button
+            type="button"
+            className="product-card__button"
+            onClick={() => onAddToCart(product)}
+          >
+            Sepete Ekle
+          </button>
+        </div>
       </div>
     </div>
   );
