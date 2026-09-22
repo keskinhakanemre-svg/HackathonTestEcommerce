@@ -24,15 +24,18 @@ function App() {
     setPage("product-detail");
   };
 
+  const currentPage =
+    page === "product-detail" && !selectedProduct ? "products" : page;
+
   return (
     <div className="app">
       <Header
         cartCount={cartCount}
-        page={page === "product-detail" ? "products" : page}
+        page={currentPage === "product-detail" ? "products" : currentPage}
         onNavigate={handleNavigate}
       />
       <main className="app__main">
-        {page === "products" ? (
+        {currentPage === "products" ? (
           <>
             <section className="app__intro">
               <h2>Ürün Listesi</h2>
@@ -44,7 +47,7 @@ function App() {
               onViewDetails={handleOpenProductDetail}
             />
           </>
-        ) : page === "product-detail" && selectedProduct ? (
+        ) : currentPage === "product-detail" ? (
           <ProductDetailPage
             product={selectedProduct}
             onBack={() => handleNavigate("products")}

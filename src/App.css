@@ -196,6 +196,7 @@
 
 .product-card__button--secondary:hover {
   background-color: #d1d5db;
+  color: #1f2937;
 }
 
 .product-detail {
