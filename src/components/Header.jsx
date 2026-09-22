@@ -12,7 +12,7 @@ export default function Header({ cartCount, page, onNavigate }) {
             }
             onClick={() => onNavigate("products")}
           >
-            Ürünler
+            Ürün Listesi
           </button>
           <button
             type="button"
